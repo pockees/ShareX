@@ -42,15 +42,26 @@
             this.txtDecodeResult = new System.Windows.Forms.TextBox();
             this.lblDecodeResult = new System.Windows.Forms.Label();
             this.btnDecodeFromScreen = new System.Windows.Forms.Button();
+            this.tpEncodeMulti = new System.Windows.Forms.TabPage();
+            this.btnPrevQrImage = new System.Windows.Forms.Button();
+            this.btnNextQrImage = new System.Windows.Forms.Button();
+            this.lblTip = new System.Windows.Forms.Label();
+            this.btnSaveAs = new System.Windows.Forms.Button();
+            this.btnGenQrcode = new System.Windows.Forms.Button();
+            this.pbQrImage = new System.Windows.Forms.PictureBox();
+            this.txtQRContentMulti = new System.Windows.Forms.TextBox();
             this.cmsQR.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbQRCode)).BeginInit();
             this.tcMain.SuspendLayout();
             this.tpEncode.SuspendLayout();
             this.tpDecode.SuspendLayout();
+            this.tpEncodeMulti.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbQrImage)).BeginInit();
             this.SuspendLayout();
             // 
             // cmsQR
             // 
+            this.cmsQR.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.cmsQR.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiCopy,
             this.tsmiSaveAs});
@@ -86,6 +97,7 @@
             // 
             // tcMain
             // 
+            this.tcMain.Controls.Add(this.tpEncodeMulti);
             this.tcMain.Controls.Add(this.tpEncode);
             this.tcMain.Controls.Add(this.tpDecode);
             resources.ApplyResources(this.tcMain, "tcMain");
@@ -134,6 +146,67 @@
             this.btnDecodeFromScreen.UseVisualStyleBackColor = true;
             this.btnDecodeFromScreen.Click += new System.EventHandler(this.btnDecodeFromScreen_Click);
             // 
+            // tpEncodeMulti
+            // 
+            this.tpEncodeMulti.Controls.Add(this.btnPrevQrImage);
+            this.tpEncodeMulti.Controls.Add(this.btnNextQrImage);
+            this.tpEncodeMulti.Controls.Add(this.lblTip);
+            this.tpEncodeMulti.Controls.Add(this.btnSaveAs);
+            this.tpEncodeMulti.Controls.Add(this.btnGenQrcode);
+            this.tpEncodeMulti.Controls.Add(this.pbQrImage);
+            this.tpEncodeMulti.Controls.Add(this.txtQRContentMulti);
+            resources.ApplyResources(this.tpEncodeMulti, "tpEncodeMulti");
+            this.tpEncodeMulti.Name = "tpEncodeMulti";
+            this.tpEncodeMulti.UseVisualStyleBackColor = true;
+            // 
+            // btnPrevQrImage
+            // 
+            this.btnPrevQrImage.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.btnPrevQrImage, "btnPrevQrImage");
+            this.btnPrevQrImage.Name = "btnPrevQrImage";
+            this.btnPrevQrImage.UseVisualStyleBackColor = true;
+            this.btnPrevQrImage.Click += new System.EventHandler(this.btnPrevQrImage_Click);
+            // 
+            // btnNextQrImage
+            // 
+            this.btnNextQrImage.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.btnNextQrImage, "btnNextQrImage");
+            this.btnNextQrImage.Name = "btnNextQrImage";
+            this.btnNextQrImage.UseVisualStyleBackColor = true;
+            this.btnNextQrImage.Click += new System.EventHandler(this.btnNextQrImage_Click);
+            // 
+            // lblTip
+            // 
+            resources.ApplyResources(this.lblTip, "lblTip");
+            this.lblTip.Name = "lblTip";
+            // 
+            // btnSaveAs
+            // 
+            resources.ApplyResources(this.btnSaveAs, "btnSaveAs");
+            this.btnSaveAs.Name = "btnSaveAs";
+            this.btnSaveAs.UseVisualStyleBackColor = true;
+            this.btnSaveAs.Click += new System.EventHandler(this.btnSaveAs_Click);
+            // 
+            // btnGenQrcode
+            // 
+            resources.ApplyResources(this.btnGenQrcode, "btnGenQrcode");
+            this.btnGenQrcode.Name = "btnGenQrcode";
+            this.btnGenQrcode.UseVisualStyleBackColor = true;
+            this.btnGenQrcode.Click += new System.EventHandler(this.btnGenQrcode_Click);
+            // 
+            // pbQrImage
+            // 
+            resources.ApplyResources(this.pbQrImage, "pbQrImage");
+            this.pbQrImage.ContextMenuStrip = this.cmsQR;
+            this.pbQrImage.Name = "pbQrImage";
+            this.pbQrImage.TabStop = false;
+            // 
+            // txtQRContentMulti
+            // 
+            resources.ApplyResources(this.txtQRContentMulti, "txtQRContentMulti");
+            this.txtQRContentMulti.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtQRContentMulti.Name = "txtQRContentMulti";
+            // 
             // QRCodeForm
             // 
             resources.ApplyResources(this, "$this");
@@ -150,6 +223,9 @@
             this.tpEncode.PerformLayout();
             this.tpDecode.ResumeLayout(false);
             this.tpDecode.PerformLayout();
+            this.tpEncodeMulti.ResumeLayout(false);
+            this.tpEncodeMulti.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbQrImage)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -168,5 +244,13 @@
         private System.Windows.Forms.TextBox txtDecodeResult;
         private System.Windows.Forms.Label lblDecodeResult;
         private System.Windows.Forms.Button btnDecodeFromFile;
+        private System.Windows.Forms.TabPage tpEncodeMulti;
+        private System.Windows.Forms.PictureBox pbQrImage;
+        private System.Windows.Forms.TextBox txtQRContentMulti;
+        private System.Windows.Forms.Button btnSaveAs;
+        private System.Windows.Forms.Button btnGenQrcode;
+        private System.Windows.Forms.Label lblTip;
+        private System.Windows.Forms.Button btnPrevQrImage;
+        private System.Windows.Forms.Button btnNextQrImage;
     }
 }

@@ -27,6 +27,7 @@ using ShareX.HelpersLib;
 using ShareX.Properties;
 using ShareX.ScreenCaptureLib;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -233,6 +234,128 @@ namespace ShareX
                     }
                 }
             }
+        }
+
+        private List<Image> qrImages;
+        private int currentImageIndex = 0;
+
+        private void btnGenQrcode_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtQRContentMulti.Text))
+            {
+                MessageBox.Show("Please Enter Encode Content!", "Warnning");
+            }
+            else
+            {
+                EncodeTextM(txtQRContentMulti.Text);
+            }
+        }
+        private void ClearQrCodeM()
+        {
+            qrImages = new List<Image>();
+            if (pbQrImage.Image != null)
+            {
+                Image temp = pbQrImage.Image;
+                pbQrImage.Image = null;
+                temp.Dispose();
+            }
+        }
+        private void EncodeTextM(string text)
+        {
+            if (isReady)
+            {
+                ClearQrCodeM();
+                if (!string.IsNullOrEmpty(text))
+                {
+                    try
+                    {
+                        string[] txtArr = text.Split('\r');
+                        if (txtArr.Length > 0)
+                        {
+                            foreach (string txt in txtArr) {
+                                string txt1 = txt.Replace("\n", "");
+                                if (string.IsNullOrEmpty(txt1)) continue;
+                                BarcodeWriter writer = new BarcodeWriter
+                                {
+                                    Format = BarcodeFormat.QR_CODE,
+                                    Options = new EncodingOptions
+                                    {
+                                        Width = pbQrImage.Width,
+                                        Height = pbQrImage.Height
+                                    },
+                                    Renderer = new BitmapRenderer()
+                                };
+                                Image Image = writer.Write(txt1);
+                                qrImages.Add(Image);
+                            }
+                            NavigateQrImageFirst();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        e.ShowError();
+                    }
+                }
+            }
+        }
+
+        private void btnNextQrImage_Click(object sender, EventArgs e)
+        {
+            NavigateQrImage(1);
+        }
+
+        private void btnPrevQrImage_Click(object sender, EventArgs e)
+        {
+            NavigateQrImage(-1);
+        }
+
+        private void NavigateQrImage(int imageIndex)
+        {
+            int showImgIndex = currentImageIndex + imageIndex;
+            if (showImgIndex < 0)
+            {
+                showImgIndex = 0;
+            }
+            if (showImgIndex >= qrImages.Count)
+            {
+                showImgIndex = qrImages.Count - 1;
+            }
+
+            currentImageIndex = showImgIndex;
+            pbQrImage.Image = qrImages[showImgIndex];
+            lblTip.Text = (showImgIndex+1) + "/" + qrImages.Count;
+        }
+
+        private void NavigateQrImageFirst()
+        {
+            currentImageIndex = 0;
+            NavigateQrImage(0);
+        }
+        private void NavigateQrImageEnd()
+        {
+            currentImageIndex = qrImages.Count - 1;
+            NavigateQrImage(0);
+        }
+
+        private void btnSaveAs_Click(object sender, EventArgs e)
+        {
+            var dirSel = new FolderBrowserDialog();
+            if (dirSel.ShowDialog() == DialogResult.OK){
+                string filePath = dirSel.SelectedPath;
+                string timeStr = ToTimestamp(DateTime.Now).ToString();
+                int i = 1;
+                foreach (Image img in qrImages)
+                {
+                    img.Save(filePath + "\\qrImage_"+ timeStr+"_"+i.ToString()+".jpg");
+                    i++;
+                }
+            }
+        }
+
+        static double ToTimestamp(DateTime value)
+        {
+            TimeSpan span = (value - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime());
+            return (double)span.TotalSeconds;
         }
     }
 }
